@@ -1,12 +1,19 @@
-use actix_web::{get, http::StatusCode, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{
+    get,
+    http::StatusCode,
+    web::{self, ServiceConfig},
+    App, HttpResponse, HttpServer, Responder,
+};
+use shuttle_actix_web::ShuttleActixWeb;
 use std::fs;
 
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(get_image))
-        .bind(("0.0.0.0", 5626))?
-        .run()
-        .await
+#[shuttle_runtime::main]
+async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clone + 'static> {
+    let config = move |cfg: &mut ServiceConfig| {
+        cfg.service(get_image);
+    };
+
+    Ok(config.into())
 }
 
 #[get("/{filename}")]
