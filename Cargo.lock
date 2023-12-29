@@ -1517,16 +1517,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rain"
-version = "0.1.0"
-dependencies = [
- "actix-web",
- "shuttle-actix-web",
- "shuttle-runtime",
- "tokio",
-]
-
-[[package]]
 name = "rand"
 version = "0.8.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1621,6 +1611,16 @@ dependencies = [
  "spin",
  "untrusted",
  "windows-sys",
+]
+
+[[package]]
+name = "ruin"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "shuttle-actix-web",
+ "shuttle-runtime",
+ "tokio",
 ]
 
 [[package]]

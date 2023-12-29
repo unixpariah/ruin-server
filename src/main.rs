@@ -2,7 +2,7 @@ use actix_web::{
     get,
     http::StatusCode,
     web::{self, ServiceConfig},
-    App, HttpResponse, HttpServer, Responder,
+    HttpResponse, Responder,
 };
 use shuttle_actix_web::ShuttleActixWeb;
 use std::fs;
@@ -18,7 +18,7 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
 
 #[get("/{filename}")]
 async fn get_image(filename: web::Path<String>) -> impl Responder {
-    let path = format!("./images/{filename}.png");
+    let path = "./images/{filename}.png".to_string();
     let image = web::block(|| match fs::read(path) {
         Ok(image) => image,
         Err(_) => fs::read(format!("./images/linux.png")).unwrap(),
