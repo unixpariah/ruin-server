@@ -18,10 +18,10 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
 
 #[get("/{filename}")]
 async fn get_image(filename: web::Path<String>) -> impl Responder {
-    let path = "./images/{filename}.png".to_string();
+    let path = format!("./images/{filename}.png");
     let image = web::block(|| match fs::read(path) {
         Ok(image) => image,
-        Err(_) => fs::read(format!("./images/linux.png")).unwrap(),
+        Err(_) => fs::read(format!("images/linux.png")).unwrap(),
     })
     .await
     .unwrap();
